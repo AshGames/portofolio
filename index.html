@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Achraf Mezdari — Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Intro Screen -->
+    <div id="intro">
+      <h1>ACHRAF MEZDARI</h1>
+      <p data-i18n="intro_hint1">◆ SHOOT the targets to discover my work</p>
+      <p data-i18n="intro_hint2">◆ AIM at my HEAD for presentation</p>
+      <p data-i18n="intro_hint3">◆ HIT socials to open links</p>
+      <p data-i18n="intro_hint4">◆ BLAST project UFOs for portfolio</p>
+      <!-- Language toggle — shoot / click to switch EN ↔ FR -->
+      <button id="lang-btn" data-i18n="lang_switch">🌐 FR</button>
+      <button id="start-btn" data-i18n="start_btn">▶ START GAME</button>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle
+          cx="20"
+          cy="20"
+          r="17"
+          stroke="#00f5ff"
+          stroke-width="1.5"
+          opacity="0.8"
+        />
+        <circle cx="20" cy="20" r="3" fill="#00f5ff" />
+        <line
+          x1="20"
+          y1="2"
+          x2="20"
+          y2="10"
+          stroke="#00f5ff"
+          stroke-width="1.5"
+        />
+        <line
+          x1="20"
+          y1="30"
+          x2="20"
+          y2="38"
+          stroke="#00f5ff"
+          stroke-width="1.5"
+        />
+        <line
+          x1="2"
+          y1="20"
+          x2="10"
+          y2="20"
+          stroke="#00f5ff"
+          stroke-width="1.5"
+        />
+        <line
+          x1="30"
+          y1="20"
+          x2="38"
+          y2="20"
+          stroke="#00f5ff"
+          stroke-width="1.5"
+        />
+      </svg>
+    </div>
+
+    <!-- Scanlines & vignette -->
+    <div id="scanlines"></div>
+    <div id="vignette"></div>
+
+    <!-- HUD -->
+    <div id="hud">
+      <div class="name">ACHRAF.EXE</div>
+      <div id="score-display">SCORE: 000000</div>
+      <div id="ammo-display">AMMO: ◉◉◉◉◉◉◉◉◉◉</div>
+      <button id="ach-hud-btn">
+        🏆 <span id="ach-count">0</span>/<span id="ach-total">?</span>
+      </button>
+    </div>
+
+    <!-- Sky -->
+    <div id="sky"></div>
+
+    <!-- Moon -->
+    <div id="moon"></div>
+
+    <!-- Ground -->
+    <div id="ground"></div>
+
+    <!-- Hint bar -->
+    <div id="hint" data-i18n="hint_bar">
+      [ CLICK TO SHOOT • AIM AT TARGETS ]
+    </div>
+
+    <!-- Legend -->
+    <div id="legend">
+      <div class="legend-item">
+        <span data-i18n="legend_head">HEAD = BIO</span>
+        <div class="legend-dot" style="background: var(--neon-pink)"></div>
+      </div>
+      <div class="legend-item">
+        <span data-i18n="legend_ufo">UFO = PROJECT</span>
+        <div class="legend-dot" style="background: var(--neon-cyan)"></div>
+      </div>
+      <div class="legend-item">
+        <span data-i18n="legend_icon">ICON = SOCIAL</span>
+        <div class="legend-dot" style="background: var(--neon-green)"></div>
+      </div>
+      <div class="legend-item">
+        <span>&#9654; = SFX</span>
+        <div class="legend-dot" style="background: var(--neon-cyan)"></div>
+      </div>
+      <div class="legend-item">
+        <span>&#9835; = BGM</span>
+        <div class="legend-dot" style="background: var(--neon-purple)"></div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal-overlay">
+      <div id="modal-box">
+        <button id="modal-close" data-i18n="modal_close">✕ CLOSE</button>
+        <div id="modal-title"></div>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

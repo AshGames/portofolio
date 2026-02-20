@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Achraf Mezdari</title>
+    <link rel="stylesheet" href="OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/styleMain.css">
+    <link rel="stylesheet" href="css/styleMenu.css">
+    <link rel="stylesheet" href="css/StyleCarousel.css">
+    <link rel="stylesheet" href="css/StyleProject.css">
+    <link rel="stylesheet" href="css/StyleHeader.css">
+
+</head>
+<body>
+  <div id="HeaderPres">
+    <div class="option">
+      <label for="perf">Low FPS</label>
+      <input type="checkbox" id="perf" name="perf" onclick="OptionGooFilter()"/>
+    </div>
+    <video class="videoPres" src="Video/Achraf_DemoReel.mp4" autoplay loop muted></video>
+    <div class="PortfolioDesc">
+      <div class="triangle"></div>
+      <div class="anim-text"></div>
+      <p>Bienvenu sur mon portfolio. <br> <br>
+        Je m'appelle Achraf, diplômé en <b>BTS service informatique aux organisations</b> <br><br>
+        et Mastère en <b>Game Design and programming à Isart Digital</b>. <br><br>
+        Vous trouverez ici tous mes projets d'école et personnel. <br> <br>
+        Vous pouvez me contacter via les réseaux sociaux ou mon mail.</p>
+    </div>
+    <nav class="menu">
+        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+        <label class="menu-open-button" for="menu-open">
+          <img src="img/Profil.jpg" alt="">
+          <span class="hamburger hamburger-1"></span>
+          <span class="hamburger hamburger-2"></span>
+          <span class="hamburger hamburger-3"></span>
+        </label>
+        
+        <a target="_blank" rel="noopener noreferrer" href="http://linkedin.com/in/achraf-mezdari" class="menu-item"> <i class="fa-brands fa-linkedin fa-5x"></i><br><div class="iconTitle">Linkedin</div> </a>
+        <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/yyDrYK7hGp" class="menu-item"> <i class="fa-brands fa-discord fa-5x"></i><br><div class="iconTitle">Discord</div> </a>
+        <a target="_blank" rel="noopener noreferrer" href="https://ashmi.itch.io/" class="menu-item"> <i class="fa-brands fa-itch-io fa-5x"></i><br><div class="iconTitle">Itch-io</div> </a>
+        <a target="_blank" rel="noopener noreferrer" href="mailto: mezdariachraf@hotmail.fr" class="menu-item"> <i class="fa-solid fa-envelope fa-5x"></i><br><div class="iconTitle">Mail</div> </a>
+    </nav>
+    <div class="HeaderHide">
+      <span class="cross cross-1"></span>
+      <span class="cross cross-2"></span>
+    </div>
+
+    <div id="sun"></div>
+    <div id="sunReflection"></div>
+    <div id="mountain"></div>
+    <div id="hey"><div id="layer-up"></div></div>
+    <div id="layer-0">
+      <div id="layer-1">
+        <div id="layer-2">
+          <div id="lines">
+            <div id="layer-corner"></div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+  <br><br>
+  <div class="scroll-content" style="user-select: none;">
+    <div id="Original" class="container owl-carousel">
+      <div class="item" style="background: url('img/Projet/Moliere.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Blueprint</div>
+          <div class="tag">Unreal Engine</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_0" onclick="OpenProject(this)" class="content">
+          <h2>Theatre de Moliere</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/Sikaria.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C++</div>
+          <div class="tag">Blueprint</div>
+          <div class="tag">Unreal Engine</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_1" onclick="OpenProject(this)" class="content">
+          <h2>Sikaria</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/MergeFruitPres.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_2" onclick="OpenProject(this)" class="content">
+          <h2>Fruit Merge 3D</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/Valpalio.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_3" onclick="OpenProject(this)" class="content">
+          <h2>Valpalio</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/underpressure.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_4" onclick="OpenProject(this)" class="content">
+          <h2>Under Pressure</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/RushPrev.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+          <div class="tag">GameArt</div>
+          <div class="tag">SoundDesign</div>
+        </div>
+        <div id="project_5" onclick="OpenProject(this)" class="content">
+          <h2>Rush</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/shmup.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">As3</div>
+          <div class="tag">Animate</div>
+          <div class="tag">Flashdevelop</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_6" onclick="OpenProject(this)" class="content">
+          <h2>Shmup</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/heroDash.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Haxe</div>
+          <div class="tag">OpenFl</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_7" onclick="OpenProject(this)" class="content">
+          <h2>Hero Dash</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/sokoban.PNG') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Haxe</div>
+          <div class="tag">OpenFl</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_8" onclick="OpenProject(this)" class="content">
+          <h2>Sokoban</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/NiceCube.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_9" onclick="OpenProject(this)" class="content">
+          <h2>Nice Cube</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/TAT_Affiche.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_10" onclick="OpenProject(this)" class="content">
+          <h2>Tiny Animal Town</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/theReport.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Blueprint</div>
+          <div class="tag">Unreal</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_11" onclick="OpenProject(this)" class="content">
+          <h2>The Report</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/carreJumper.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_12" onclick="OpenProject(this)" class="content">
+          <h2>Carre Jumper</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/chillySpace.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_13" onclick="OpenProject(this)" class="content">
+          <h2>Chilly Space</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/LinearEscape.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">C#</div>
+          <div class="tag">Unity</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_14" onclick="OpenProject(this)" class="content">
+          <h2>Linear Escape</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/memoryMatch.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Java</div>
+          <div class="tag">Android studio</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_15" onclick="OpenProject(this)" class="content">
+          <h2>Memory Match</h2>
+        </div>
+      </div>
+      <div class="item" style="background: url('img/Projet/spaceWalk.png') no-repeat 50% / cover;">
+        <div class="tag_panel">
+          <div class="tag">Blueprint</div>
+          <div class="tag">Unreal</div>
+          <div class="tag">GameDev</div>
+          <div class="tag">GameDesign</div>
+        </div>
+        <div id="project_16" onclick="OpenProject(this)" class="content">
+          <h2>Space Walk</h2>
+        </div>
+      </div>
+    </div>
+    <div id="project" class="project">
+        <iframe id="projectPlayer" src="https://www.youtube.com/embed/cBkQOML-TDU?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+        <p id="description" class="description"></p>
+    </div>
+  </div>
+
+    <footer>Copyright © 2024 Achraf Mezdari</footer>
+
+      <!-- filters -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <filter id="shadowed-goo">
+            
+            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="20" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+            <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+            <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+            <feComposite in2="shadow" in="goo" result="goo" /> 
+            <feComposite in2="goo" in="SourceGraphic" operator="atop" />
+        </filter>
+      </defs>
+  </svg>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/Lodash.js"></script>
+  <script src="OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+  <script src="https://kit.fontawesome.com/67ad38c06d.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
+
