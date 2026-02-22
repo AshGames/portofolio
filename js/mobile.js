@@ -15,7 +15,7 @@ let _joyCenterY = 0;
 let _joyDx = 0;
 let _joyDy = 0;
 const JOY_MAX = 40; // max knob displacement (px)
-const AIM_SPEED = 9; // crosshair px per frame per unit deflection
+const AIM_SPEED = 2; // crosshair px per frame per unit deflection
 
 let _rafId = null;
 
