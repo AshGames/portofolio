@@ -5,21 +5,21 @@
 //   exchange, and triggers bump FX (particles + flash) via effects.js.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { state } from "./state.js";
+import { state, MOB_SCALE, isMobile } from "./state.js";
 import { spawnBumpParticles, shakeTarget } from "./effects.js";
 import { randomizeHeadPhoto } from "./targets.js";
 
-const HUD_H = 62; // height of top HUD bar in px
-const GROUND_H = 80; // height of bottom ground bar in px
+const HUD_H = isMobile ? 42 : 62; // height of top HUD bar in px
+const GROUND_H = isMobile ? 50 : 80; // height of bottom ground bar in px
 
-/** Collision radius (px) per target type — matches half the SVG viewBox. */
+/** Collision radius (px) per target type — scaled on mobile. */
 export const TARGET_RADIUS = {
-  head: 46,
-  project: 38,
-  social: 30,
-  lang: 32,
-  sound: 30,
-  music: 30,
+  head: Math.round(46 * MOB_SCALE),
+  project: Math.round(38 * MOB_SCALE),
+  social: Math.round(30 * MOB_SCALE),
+  lang: Math.round(32 * MOB_SCALE),
+  sound: Math.round(30 * MOB_SCALE),
+  music: Math.round(30 * MOB_SCALE),
 };
 
 /** Debounce table so the same pair doesn't fire bump FX every frame. */

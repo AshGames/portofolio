@@ -4,22 +4,22 @@
 // CSS fly animations are disabled; left/top/transform are set every rAF tick.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { state } from "./state.js";
+import { state, MOB_SCALE, isMobile } from "./state.js";
 
 const sky = document.getElementById("sky");
 
-/** Collision radius (px) — must stay in sync with physics.js TARGET_RADIUS. */
+/** Collision radius (px) — scaled down on mobile. */
 const RADIUS = {
-  head: 46,
-  project: 38,
-  social: 30,
-  lang: 32,
-  sound: 30,
-  music: 30,
+  head: Math.round(46 * MOB_SCALE),
+  project: Math.round(38 * MOB_SCALE),
+  social: Math.round(30 * MOB_SCALE),
+  lang: Math.round(32 * MOB_SCALE),
+  sound: Math.round(30 * MOB_SCALE),
+  music: Math.round(30 * MOB_SCALE),
 };
 
-const HUD_H = 62;
-const GROUND_H = 80;
+const HUD_H = isMobile ? 42 : 62;
+const GROUND_H = isMobile ? 50 : 80;
 
 // ── Global hover tooltip (appended to body so it is never clipped) ──────────
 const _tooltip = document.createElement("div");
@@ -101,11 +101,13 @@ export function createHeadTarget(onHit) {
   const el = document.createElement("div");
   el.classList.add("target");
   el.id = "head-target";
-  el.style.cssText = "--glow: var(--neon-pink); width:90px; height:90px;";
+  const _hs = Math.round(90 * MOB_SCALE);
+  el.style.cssText = `--glow: var(--neon-pink); width:${_hs}px; height:${_hs}px;`;
   _disableAnim(el);
 
+  // Scale the head-photo-wrap to match
   el.innerHTML = `
-    <div class="head-photo-wrap">
+    <div class="head-photo-wrap" style="width:${_hs}px;height:${_hs}px;">
       <img class="head-photo" src="${HEAD_PHOTOS[0]}" alt="me" draggable="false">
       <div class="head-ring"></div>
     </div>
@@ -132,7 +134,8 @@ export function createProjectTarget(proj, index, onHit) {
   const shortTitle =
     proj.title.length > 14 ? proj.title.slice(0, 13) + "…" : proj.title;
 
-  el.style.cssText = `--glow:${col}; width:75px; height:75px;`;
+  const _ps = Math.round(75 * MOB_SCALE);
+  el.style.cssText = `--glow:${col}; width:${_ps}px; height:${_ps}px;`;
   _disableAnim(el);
   el.innerHTML = `
     <svg width="75" height="75" viewBox="0 0 75 75">
@@ -174,7 +177,8 @@ export function createSocialTarget(social, index, onHit) {
   const el = document.createElement("div");
   el.classList.add("target", "social-target");
 
-  el.style.cssText = `--glow:${social.color}; width:60px; height:60px;`;
+  const _ss = Math.round(60 * MOB_SCALE);
+  el.style.cssText = `--glow:${social.color}; width:${_ss}px; height:${_ss}px;`;
   _disableAnim(el);
   el.innerHTML = `
     <div class="social-logo-wrap" style="border-color:${social.color}; box-shadow:0 0 10px ${social.color}66;">
@@ -211,7 +215,8 @@ export function createLangTarget(onHit) {
   el.classList.add("target", "lang-target");
   el.id = "lang-target-el";
 
-  el.style.cssText = "--glow:#ffe600; width:64px; height:64px;";
+  const _ls = Math.round(64 * MOB_SCALE);
+  el.style.cssText = `--glow:#ffe600; width:${_ls}px; height:${_ls}px;`;
   _disableAnim(el);
 
   el.innerHTML = `
@@ -250,7 +255,8 @@ export function createSoundTarget(onHit) {
   el.classList.add("target", "sound-target");
   el.id = "sound-target-el";
 
-  el.style.cssText = "--glow:#00f5ff; width:64px; height:64px;";
+  const _sndS = Math.round(64 * MOB_SCALE);
+  el.style.cssText = `--glow:#00f5ff; width:${_sndS}px; height:${_sndS}px;`;
   _disableAnim(el);
 
   el.innerHTML = `
@@ -288,7 +294,8 @@ export function createMusicTarget(onHit) {
   el.classList.add("target", "music-target");
   el.id = "music-target-el";
 
-  el.style.cssText = "--glow:#bf00ff; width:64px; height:64px;";
+  const _musS = Math.round(64 * MOB_SCALE);
+  el.style.cssText = `--glow:#bf00ff; width:${_musS}px; height:${_musS}px;`;
   _disableAnim(el);
   // Reflect the current musicOn state visually at spawn time
   if (!state.musicOn) {

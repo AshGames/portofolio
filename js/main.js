@@ -6,13 +6,18 @@ import { applyTranslations } from "./i18n.js";
 import { updateHUD } from "./hud.js";
 import { createStars, makeTrees } from "./effects.js";
 import { initStartButton } from "./game.js";
+import { initMobileControls } from "./mobile.js";
+import { isMobile } from "./state.js";
 
 // ── Cursor tracking ────────────────────────────────────────────────────────
 const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", (e) => {
-  cursor.style.left = `${e.clientX}px`;
-  cursor.style.top = `${e.clientY}px`;
-});
+if (!isMobile) {
+  // Desktop: follow the real mouse
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+}
 
 // ── Environment ────────────────────────────────────────────────────────────
 const sky = document.getElementById("sky");
@@ -25,3 +30,6 @@ updateHUD(); // render score / ammo bar
 
 // ── Wireup buttons ─────────────────────────────────────────────────────────
 initStartButton();
+
+// ── Mobile controls ────────────────────────────────────────────────────────
+initMobileControls();
