@@ -1,0 +1,168 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   EFFECTS — Shot burst, bullet, muzzle flash, score popup,
+             bump collision FX, explosion particles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Shot effect */
+.shot-burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 8000;
+  transform: translate(-50%, -50%);
+  animation: burst 0.5s forwards;
+}
+@keyframes burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+/* Bullet */
+.bullet {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-yellow);
+  box-shadow:
+    0 0 12px var(--neon-yellow),
+    0 0 24px #ff8800;
+  pointer-events: none;
+  z-index: 7000;
+  transition: none;
+}
+
+/* Score popup */
+.score-popup {
+  position: fixed;
+  pointer-events: none;
+  z-index: 8500;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px var(--neon-yellow);
+  animation: scoreRise 1s forwards;
+  transform: translateX(-50%);
+}
+@keyframes scoreRise {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-60px);
+  }
+}
+
+/* Muzzle flash */
+#muzzle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 8100;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--neon-yellow);
+  box-shadow:
+    0 0 20px var(--neon-yellow),
+    0 0 40px #ff8800;
+  transform: translate(-50%, -50%);
+  display: mone;
+  animation: flash 0.1s forwards;
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+  }
+}
+
+/* ── Bump collision FX ─────────────────────────────────────────────────── */
+
+/* Flash applied to both targets on collision */
+.target-bumped {
+  filter: drop-shadow(0 0 22px #fff) brightness(2.8) !important;
+  transition: filter 0.25s ease-out;
+}
+
+/* Tiny pixel particles that burst outward on collision */
+.bump-particle {
+  position: fixed;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 7500;
+  transform: translate(-50%, -50%);
+  animation: bumpFly 0.55s ease-out forwards;
+}
+
+@keyframes bumpFly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--bpx), var(--bpy))
+      scale(0.15);
+  }
+}
+
+/* ── Target explosion particles ─────────────────────────────────────────── */
+.explode-particle {
+  position: fixed;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 7600;
+  transform: translate(-50%, -50%);
+  animation: explodeFly 0.65s ease-out forwards;
+}
+
+@keyframes explodeFly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--epx), var(--epy))
+      scale(0.1);
+  }
+}
+
+/* Target shrinks and fades when shot before a modal opens */
+.target-exploding {
+  pointer-events: none !important;
+  animation: targetExplode 0.45s ease-in forwards !important;
+}
+
+@keyframes targetExplode {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  20% {
+    opacity: 0.9;
+    transform: scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}

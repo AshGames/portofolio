@@ -360,7 +360,6 @@ export function startGame() {
   createMusicTarget(hitMusic);
 
   // Re-apply translations so the lang target label is correct
-  // (fixes bug: switching language on intro didn't update in-game targets)
   applyTranslations();
 
   PROJECTS.forEach((proj, i) => {

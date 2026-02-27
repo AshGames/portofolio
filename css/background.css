@@ -1,0 +1,105 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACKGROUND — Sky, ground, moon/sun, stars, trees, bushes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Sky / background */
+#sky {
+  position: fixed;
+  inset: 0;
+  bottom: 80px;
+  background: linear-gradient(180deg, #0d0221 0%, #1a0533 50%, #2d0d4e 100%);
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  animation: twinkle var(--d, 2s) infinite alternate;
+}
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Ground */
+#ground {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--grass);
+  border-top: 4px solid #22692e;
+  z-index: 100;
+  overflow: hidden;
+}
+#ground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: auto;
+  bottom: 0;
+  height: 40px;
+  background: var(--dirt);
+  border-top: 3px solid #5c3d2e;
+}
+
+/* Sun — absolute inside #sky, behind targets (z-index 200) */
+#moon {
+  position: absolute;
+  top: 80px;
+  right: 10%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe9a0, #f5c842);
+  box-shadow:
+    0 0 30px #ffe600,
+    0 0 60px rgba(255, 230, 0, 0.3);
+  z-index: 5;
+  animation: moonFloat 6s ease-in-out infinite;
+  cursor: none;
+  transition: filter 0.3s;
+}
+#moon:hover {
+  filter: brightness(1.4) drop-shadow(0 0 20px #ffe600);
+}
+#moon.moon-shot {
+  filter: brightness(3) drop-shadow(0 0 40px #ffe600);
+}
+@keyframes moonFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Stars */
+#stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Pixel trees */
+.tree {
+  position: absolute;
+  bottom: 80px;
+  z-index: 150;
+}
+
+/* Neon bush */
+.bush {
+  position: absolute;
+  bottom: 80px;
+  border-radius: 50% 50% 0 0;
+  background: var(--grass);
+  z-index: 160;
+}

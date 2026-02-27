@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DJ TRUCK — Animated bass truck for BGM + floating music notes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#dj-truck {
+  position: fixed;
+  bottom: 80px;
+  left: -260px;
+  z-index: 170;
+  pointer-events: none;
+  transition: left 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+}
+#dj-truck.dj-truck-visible {
+  left: calc(30% - 100px); /* centred horizontally */
+}
+#dj-truck.dj-truck-exit {
+  animation: truckExit 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes truckExit {
+  0% {
+    left: calc(30% - 100px);
+  }
+  18% {
+    left: calc(30% - 140px);
+  } /* wind-up: back a little */
+  100% {
+    left: calc(100% + 60px);
+  } /* zoom off-screen right */
+}
+#dj-truck-img {
+  width: 200px;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+  transform: scaleX(-1); /* flip to face right */
+}
+#dj-truck.dj-truck-visible #dj-truck-img {
+  animation: bassBounce 0.45s ease-in-out infinite;
+}
+@keyframes bassBounce {
+  0%,
+  100% {
+    transform: scaleX(-1) scaleY(1) translateY(0);
+  }
+  20% {
+    transform: scaleX(-1) scaleY(0.95) translateY(4px);
+  }
+  50% {
+    transform: scaleX(-1) scaleY(1.07) translateY(-6px);
+  }
+  75% {
+    transform: scaleX(-1) scaleY(0.98) translateY(2px);
+  }
+}
+
+/* Floating music notes from DJ truck */
+.dj-note {
+  position: fixed;
+  pointer-events: none;
+  z-index: 171;
+  opacity: 0;
+  animation: noteFloat 2s ease-out forwards;
+}
+@keyframes noteFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--note-dy, -140px))
+      translateX(var(--note-dx, 30px)) scale(0.3) rotate(var(--note-rot, 25deg));
+  }
+}

@@ -13,7 +13,6 @@ const BGM_TRACKS = ["audio/bgm0.mp3", "audio/bgm1.mp3"];
 
 const SFX_FILES = {
   shoot: "audio/sfx_shoot.mp3",
-  // hit uses the same file but at a higher pitch for a distinct "ping"
   hit: "audio/sfx_hit.mp3",
 };
 

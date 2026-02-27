@@ -30,17 +30,17 @@ export const TRANSLATIONS = {
 
     // ── Bio modal ─────────────────────────────────────────────────────────────
     bio_modal_title: "◆ ACHRAF MEZDARI ◆",
-    bio_role: "FULL STACK DEVELOPER",
+    bio_role: "FULL STACK DEVELOPER · GAME DESIGNER · GAME DEVELOPER",
     bio_p1:
-      "👋 Hello! I'm <strong style='color:var(--neon-cyan)'>Achraf Mezdari</strong>, a passionate Full Stack Developer with expertise in building modern web applications.",
+      "👋 Hello! I'm <strong style='color:var(--neon-cyan)'>Achraf Mezdari</strong>, a passionate Full Stack Developer, Game Designer & Game Developer.",
     bio_p2:
-      "🚀 I specialize in crafting exceptional digital experiences using the latest technologies and best practices in software development.",
+      "🎓 I hold a <strong style='color:var(--neon-cyan)'>BTS SIO</strong> and a <strong style='color:var(--neon-cyan)'>Mastère in Game Design & Programming</strong> from <strong style='color:var(--neon-cyan)'>ISART Digital</strong>.",
     bio_p3:
-      "💡 With a strong foundation in both frontend and backend development, I bring ideas to life through clean code, intuitive design, and innovative solutions.",
+      "🚀 From modern web apps to game experiences, I bring ideas to life through clean code, intuitive design, and innovative solutions.",
     bio_p4:
-      "🎯 My goal is to create impactful software that makes a difference. Currently open to exciting new opportunities!",
+      "🎯 My goal is to create impactful software and games that make a difference. Currently open to exciting new opportunities!",
     bio_stat1: "◆ 18+ PROJECTS DELIVERED",
-    bio_stat2: "◆ FULL STACK EXPERTISE",
+    bio_stat2: "◆ FULL STACK · GAME DEV",
     bio_stat3: "◆ OPEN TO OPPORTUNITIES",
 
     // ── Project modal ─────────────────────────────────────────────────────────
@@ -77,17 +77,17 @@ export const TRANSLATIONS = {
 
     // ── Bio modal ─────────────────────────────────────────────────────────────
     bio_modal_title: "◆ ACHRAF MEZDARI ◆",
-    bio_role: "DÉVELOPPEUR FULL STACK",
+    bio_role: "DÉVELOPPEUR FULL STACK · GAME DESIGNER · GAME DEVELOPER",
     bio_p1:
-      "👋 Bonjour ! Je suis <strong style='color:var(--neon-cyan)'>Achraf Mezdari</strong>, développeur Full Stack passionné, expert dans la création d'applications web modernes.",
+      "👋 Bonjour ! Je suis <strong style='color:var(--neon-cyan)'>Achraf Mezdari</strong>, développeur Full Stack, Game Designer & Game Developer passionné.",
     bio_p2:
-      "🚀 Je me spécialise dans la conception d'expériences numériques exceptionnelles en utilisant les dernières technologies et les meilleures pratiques.",
+      "🎓 Diplômé d'un <strong style='color:var(--neon-cyan)'>BTS SIO</strong> et d'un <strong style='color:var(--neon-cyan)'>Mastère Game Design & Programming</strong> à <strong style='color:var(--neon-cyan)'>ISART Digital</strong>.",
     bio_p3:
-      "💡 Avec de solides bases en développement frontend et backend, je donne vie aux idées grâce à un code propre, un design intuitif et des solutions innovantes.",
+      "🚀 Des applications web modernes aux expériences de jeu, je donne vie aux idées grâce à un code propre, un design intuitif et des solutions innovantes.",
     bio_p4:
-      "🎯 Mon objectif est de créer des logiciels impactants qui font la différence. Actuellement ouvert à de nouvelles opportunités !",
+      "🎯 Mon objectif est de créer des logiciels et des jeux impactants qui font la différence. Actuellement ouvert à de nouvelles opportunités !",
     bio_stat1: "◆ 18+ PROJETS LIVRÉS",
-    bio_stat2: "◆ EXPERTISE FULL STACK",
+    bio_stat2: "◆ FULL STACK · GAME DEV",
     bio_stat3: "◆ OUVERT AUX OPPORTUNITÉS",
 
     // ── Project modal ─────────────────────────────────────────────────────────

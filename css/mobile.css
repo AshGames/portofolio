@@ -1,0 +1,344 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE — Virtual joystick, fire button & responsive media queries
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#mobile-controls {
+  display: none;
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* pass-through; children opt-in */
+  z-index: 95000;
+}
+#mobile-controls.mobile-visible {
+  display: block;
+}
+
+/* ── Joystick ──────────────────────────────────────────────────────────── */
+#joystick-zone {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 120px;
+  height: 120px;
+  pointer-events: auto;
+}
+#joystick-base {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(0, 245, 255, 0.08);
+  border: 2px solid rgba(0, 245, 255, 0.35);
+  box-shadow:
+    0 0 16px rgba(0, 245, 255, 0.15),
+    inset 0 0 20px rgba(0, 245, 255, 0.05);
+  position: relative;
+  touch-action: none;
+}
+#joystick-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 245, 255, 0.5) 0%,
+    rgba(0, 245, 255, 0.15) 100%
+  );
+  border: 2px solid rgba(0, 245, 255, 0.7);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── Fire button ───────────────────────────────────────────────────────── */
+#fire-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 24px;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 45, 120, 0.35) 0%,
+    rgba(255, 45, 120, 0.1) 100%
+  );
+  border: 3px solid var(--neon-pink);
+  box-shadow:
+    0 0 18px var(--neon-pink),
+    inset 0 0 14px rgba(255, 45, 120, 0.1);
+  color: #fff;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  pointer-events: auto;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  font-family: "Press Start 2P", monospace;
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s;
+}
+#fire-btn:active {
+  transform: scale(0.88);
+  box-shadow:
+    0 0 30px var(--neon-pink),
+    inset 0 0 20px rgba(255, 45, 120, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE MEDIA QUERIES — scale down everything on small screens
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile-only class applied by JS */
+body.is-mobile {
+  cursor: none;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+body.is-mobile * {
+  cursor: none !important;
+}
+
+@media (max-width: 900px) and (pointer: coarse) {
+  /* HUD — compact */
+  #hud {
+    height: 42px;
+    padding: 0 10px;
+    font-size: 8px;
+  }
+  #hud .name {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  #score-display {
+    font-size: 7px;
+  }
+  #ammo-display {
+    font-size: 7px;
+  }
+  #ach-hud-btn {
+    font-size: 6px;
+    padding: 3px 6px;
+  }
+
+  /* Ground — thinner */
+  #ground {
+    height: 50px;
+  }
+  #ground::before {
+    height: 26px;
+  }
+
+  /* Sky fills to shorter ground */
+  #sky {
+    bottom: 50px;
+  }
+
+  /* Moon — smaller */
+  #moon {
+    width: 45px;
+    height: 45px;
+    top: 52px;
+  }
+
+  /* Hint bar */
+  #hint {
+    bottom: 10px;
+    font-size: 6px;
+  }
+
+  /* Legend — moved to top for mobile */
+  #legend {
+    bottom: auto;
+    top: 48px;
+    font-size: 6px;
+    right: 8px;
+  }
+  .legend-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Targets — use CSS scale as fallback for any targets not sized by JS */
+  .target svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Head photo wrap adapts to parent */
+  .head-photo-wrap {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Social logo wrap — inherit size from parent .target */
+  .social-logo-wrap {
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+  }
+
+  /* Intro — mobile friendly */
+  #intro h1 {
+    font-size: clamp(12px, 4vw, 22px);
+  }
+  #intro p {
+    font-size: 8px;
+    margin: 4px 8px;
+    line-height: 1.8;
+  }
+  #lang-btn {
+    font-size: 9px;
+    padding: 6px 14px;
+    margin-top: 16px;
+  }
+  #start-btn {
+    font-size: 10px;
+    padding: 10px 18px;
+    margin-top: 10px;
+  }
+
+  /* Modal — adapt for mobile (shifted up a little) */
+  #modal-overlay {
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+  #modal-box {
+    max-width: 95%;
+    max-height: 72vh;
+    padding: 16px;
+  }
+  #modal-title {
+    font-size: 9px;
+    padding-right: 50px;
+  }
+  #modal-body {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  #modal-close {
+    font-size: 9px;
+    padding: 4px 7px;
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Project card */
+  .proj-thumb-img {
+    height: 100px;
+  }
+  .proj-desc {
+    font-size: 10px;
+  }
+  .proj-card .tag {
+    font-size: 7px;
+    padding: 2px 5px;
+  }
+
+  /* Score popup — smaller */
+  .score-popup {
+    font-size: 9px;
+  }
+
+  /* Toast — narrower, shifted up */
+  .ach-toast {
+    width: 260px;
+    right: -280px;
+    bottom: 60px;
+  }
+  .ach-toast.ach-toast-in {
+    right: 10px;
+  }
+  .ach-toast-icon {
+    font-size: 26px;
+  }
+  .ach-toast-title {
+    font-size: 9px;
+  }
+  .ach-toast-desc {
+    font-size: 9px;
+  }
+  .ach-toast-header-text {
+    font-size: 7px;
+  }
+
+  /* Achievement grid */
+  .ach-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .ach-card {
+    padding: 8px 10px;
+  }
+  .ach-card-icon {
+    font-size: 22px;
+    min-width: 28px;
+  }
+  .ach-card-title {
+    font-size: 8px;
+  }
+  .ach-card-desc {
+    font-size: 9px;
+  }
+
+  /* Tooltip on mobile — position near crosshair, slightly smaller */
+  #target-tooltip {
+    max-width: 130px;
+  }
+  #target-tooltip .tt-img {
+    width: 118px;
+    height: 66px;
+  }
+
+  /* Cursor — ensure it shows on mobile as crosshair */
+  #cursor {
+    display: block;
+    z-index: 99999;
+  }
+
+  /* Trees — smaller */
+  .tree {
+    bottom: 50px;
+    transform: scale(0.6);
+    transform-origin: bottom center;
+  }
+  .bush {
+    bottom: 50px;
+    transform: scale(0.6);
+    transform-origin: bottom center;
+  }
+
+  /* DJ Truck — mobile */
+  #dj-truck {
+    bottom: 50px;
+    left: -160px;
+  }
+  #dj-truck.dj-truck-visible {
+    left: calc(50% - 60px);
+  }
+  #dj-truck.dj-truck-exit {
+    animation: truckExitMobile 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes truckExitMobile {
+    0% {
+      left: calc(50% - 60px);
+    }
+    18% {
+      left: calc(50% - 100px);
+    }
+    100% {
+      left: calc(100% + 40px);
+    }
+  }
+  #dj-truck-img {
+    width: 120px;
+  }
+}
