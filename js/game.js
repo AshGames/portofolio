@@ -26,6 +26,7 @@ import {
   onScore,
   initAchievementsHUD,
   openAchievementsViewer,
+  startIdleTimer,
 } from "./achievements.js";
 
 // ── Explosion helper ────────────────────────────────────────────────────────
@@ -246,13 +247,88 @@ function hitMusic(el, e) {
         : "drop-shadow(0 0 4px #333) brightness(0.4) grayscale(1)";
       if (state.musicOn) {
         startBGM();
+        showDjTruck();
         onHit("music");
       } else {
         stopBGM();
+        hideDjTruck();
       }
       updateHUD();
     },
   );
+}
+
+// ── DJ Truck — bass truck animation for BGM ────────────────────────────────
+let _noteTimer = null;
+
+function showDjTruck() {
+  const truck = document.getElementById("dj-truck");
+  if (!truck) return;
+  truck.classList.remove("dj-truck-exit");
+  // Make visible again (was hidden after previous exit)
+  truck.style.visibility = "";
+  // Small delay so the browser registers the position reset before animating in
+  requestAnimationFrame(() => truck.classList.add("dj-truck-visible"));
+  _startNotes();
+}
+
+function hideDjTruck() {
+  const truck = document.getElementById("dj-truck");
+  if (!truck) return;
+  _stopNotes();
+  // Wind-up then zoom out to the right (CSS animation)
+  truck.classList.add("dj-truck-exit");
+  truck.classList.remove("dj-truck-visible");
+  // After the exit animation completes, hide and park off-screen left
+  const onEnd = () => {
+    truck.removeEventListener("animationend", onEnd);
+    truck.style.visibility = "hidden"; // hide so the snap-back isn't visible
+    truck.classList.remove("dj-truck-exit");
+  };
+  truck.addEventListener("animationend", onEnd);
+}
+
+function _startNotes() {
+  _stopNotes();
+  _scheduleNote();
+}
+
+function _stopNotes() {
+  if (_noteTimer) {
+    clearTimeout(_noteTimer);
+    _noteTimer = null;
+  }
+}
+
+function _scheduleNote() {
+  _noteTimer = setTimeout(
+    () => {
+      _spawnDjNote();
+      _scheduleNote();
+    },
+    350 + Math.random() * 500,
+  );
+}
+
+function _spawnDjNote() {
+  const truck = document.getElementById("dj-truck");
+  if (!truck || !truck.classList.contains("dj-truck-visible")) return;
+  const rect = truck.getBoundingClientRect();
+  const noteIdx = Math.floor(Math.random() * 4);
+  const note = document.createElement("img");
+  note.src = `img/others/NoteSheet${noteIdx}.png`;
+  note.classList.add("dj-note");
+  const size = 18 + Math.random() * 18;
+  const startX = rect.left + 20 + Math.random() * Math.max(rect.width - 40, 10);
+  const startY = rect.top - 10;
+  note.style.cssText = `
+    left:${startX}px; top:${startY}px; width:${size}px;
+    --note-dy:${-100 - Math.random() * 80}px;
+    --note-dx:${(Math.random() - 0.5) * 80}px;
+    --note-rot:${(Math.random() - 0.5) * 50}deg;
+  `;
+  document.body.appendChild(note);
+  setTimeout(() => note.remove(), 2000);
 }
 
 // ── Miss handler (click on empty sky) ─────────────────────────────────────
@@ -262,7 +338,8 @@ document.addEventListener("click", (e) => {
     e.target.closest(".target") ||
     e.target.closest("#modal-overlay") ||
     e.target.closest("#start-btn") ||
-    e.target.closest("#lang-btn")
+    e.target.closest("#lang-btn") ||
+    e.target.closest("#moon")
   )
     return;
   shoot(e.clientX, e.clientY);
@@ -281,6 +358,10 @@ export function startGame() {
   createLangTarget(hitLang);
   createSoundTarget(hitSound);
   createMusicTarget(hitMusic);
+
+  // Re-apply translations so the lang target label is correct
+  // (fixes bug: switching language on intro didn't update in-game targets)
+  applyTranslations();
 
   PROJECTS.forEach((proj, i) => {
     setTimeout(() => createProjectTarget(proj, i, hitProject), i * 400);
@@ -302,6 +383,27 @@ export function startGame() {
       openAchievementsViewer();
     });
   }
+
+  // ── Sun (moon) click handler — achievement ──────────────────────────────
+  const moon = document.getElementById("moon");
+  if (moon) {
+    moon.addEventListener("click", (e) => {
+      if (!state.gameStarted || state.exploding) return;
+      e.stopPropagation();
+      shoot(e.clientX, e.clientY);
+      playSFX("hit");
+      state.score += 200;
+      showScorePopup(e.clientX, e.clientY, "+200 ☀️");
+      updateHUD();
+      onHit("sun");
+      onScore(state.score);
+      moon.classList.add("moon-shot");
+      setTimeout(() => moon.classList.remove("moon-shot"), 400);
+    });
+  }
+
+  // ── Idle achievement timer ──────────────────────────────────────────────
+  startIdleTimer();
 }
 
 // ── Intro / Start button ───────────────────────────────────────────────────

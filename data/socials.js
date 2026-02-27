@@ -8,14 +8,14 @@ export const SOCIALS = [
     id: "github",
     label: "GitHub",
     color: "#39ff14",
-    url: "https://github.com/",
+    url: "https://github.com/AshGames",
     img: "img/Socials/github.svg",
   },
   {
     id: "linkedin",
     label: "LinkedIn",
     color: "#00a0dc",
-    url: "https://linkedin.com/",
+    url: "https://www.linkedin.com/in/achraf-mezdari",
     img: "img/Socials/linkedin.svg",
   },
   {
@@ -29,7 +29,7 @@ export const SOCIALS = [
     id: "email",
     label: "Email",
     color: "#ffe600",
-    url: "mailto:",
+    url: "mailto:mezdariachraf@hotmail.fr",
     img: "img/Socials/email.svg",
   },
 ];

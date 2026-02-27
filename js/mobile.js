@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { state, isMobile } from "./state.js";
+import { showTooltipAt, hideTooltip } from "./targets.js";
 
 const cursor = document.getElementById("cursor");
 
@@ -118,6 +119,8 @@ export function initMobileControls() {
   );
 
   // ── Aim update loop ─────────────────────────────────────────────────────
+  let _prevHoveredTarget = null;
+
   function _aimLoop() {
     if (_joyActive && (Math.abs(_joyDx) > 0.05 || Math.abs(_joyDy) > 0.05)) {
       state.aimX += _joyDx * AIM_SPEED;
@@ -127,6 +130,34 @@ export function initMobileControls() {
       state.aimY = Math.max(0, Math.min(window.innerHeight, state.aimY));
       _syncCursor();
     }
+
+    // ── Tooltip hover detection ───────────────────────────────────────────
+    const elUnder = document.elementFromPoint(state.aimX, state.aimY);
+    const targetEl = elUnder ? elUnder.closest(".target") : null;
+
+    if (targetEl !== _prevHoveredTarget) {
+      // Left the previous target → hide
+      if (_prevHoveredTarget) hideTooltip();
+      _prevHoveredTarget = targetEl;
+
+      // Entered a new target → show if it has tooltip data
+      if (targetEl) {
+        const tObj = state.targets.find((t) => t.el === targetEl);
+        if (tObj && tObj.type === "project" && tObj.data) {
+          showTooltipAt(tObj.data.img, tObj.data.title, state.aimX, state.aimY);
+        } else if (tObj && tObj.type === "social" && tObj.data) {
+          showTooltipAt(tObj.data.img, tObj.data.label, state.aimX, state.aimY);
+        }
+      }
+    } else if (targetEl && _prevHoveredTarget) {
+      // Still on the same target → update tooltip position
+      const tt = document.getElementById("target-tooltip");
+      if (tt && tt.classList.contains("tt-visible")) {
+        tt.style.left = `${state.aimX + 18}px`;
+        tt.style.top = `${state.aimY - 10}px`;
+      }
+    }
+
     _rafId = requestAnimationFrame(_aimLoop);
   }
   _aimLoop();

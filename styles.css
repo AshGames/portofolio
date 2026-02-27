@@ -117,7 +117,7 @@ body {
 }
 #hint {
   position: fixed;
-  bottom: 120px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   font-family: "Press Start 2P", monospace;
@@ -184,9 +184,9 @@ body {
   border-top: 3px solid #5c3d2e;
 }
 
-/* Moon */
+/* Sun (soleil) — absolute inside #sky, behind targets (z-index 200) */
 #moon {
-  position: fixed;
+  position: absolute;
   top: 80px;
   right: 10%;
   width: 80px;
@@ -196,8 +196,16 @@ body {
   box-shadow:
     0 0 30px #ffe600,
     0 0 60px rgba(255, 230, 0, 0.3);
-  z-index: 50;
+  z-index: 5;
   animation: moonFloat 6s ease-in-out infinite;
+  cursor: none;
+  transition: filter 0.3s;
+}
+#moon:hover {
+  filter: brightness(1.4) drop-shadow(0 0 20px #ffe600);
+}
+#moon.moon-shot {
+  filter: brightness(3) drop-shadow(0 0 40px #ffe600);
 }
 @keyframes moonFloat {
   0%,
@@ -206,6 +214,82 @@ body {
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+/* ── DJ Truck — animated bass truck for BGM ─────────────────────────────── */
+#dj-truck {
+  position: fixed;
+  bottom: 80px;
+  left: -260px;
+  z-index: 170;
+  pointer-events: none;
+  transition: left 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+}
+#dj-truck.dj-truck-visible {
+  left: calc(30% - 100px); /* centred horizontally */
+}
+#dj-truck.dj-truck-exit {
+  animation: truckExit 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes truckExit {
+  0% {
+    left: calc(30% - 100px);
+  }
+  18% {
+    left: calc(30% - 140px);
+  } /* wind-up: back a little */
+  100% {
+    left: calc(100% + 60px);
+  } /* zoom off-screen right */
+}
+#dj-truck-img {
+  width: 200px;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+  transform: scaleX(-1); /* flip to face right */
+}
+#dj-truck.dj-truck-visible #dj-truck-img {
+  animation: bassBounce 0.45s ease-in-out infinite;
+}
+@keyframes bassBounce {
+  0%,
+  100% {
+    transform: scaleX(-1) scaleY(1) translateY(0);
+  }
+  20% {
+    transform: scaleX(-1) scaleY(0.95) translateY(4px);
+  }
+  50% {
+    transform: scaleX(-1) scaleY(1.07) translateY(-6px);
+  }
+  75% {
+    transform: scaleX(-1) scaleY(0.98) translateY(2px);
+  }
+}
+
+/* Floating music notes from DJ truck */
+.dj-note {
+  position: fixed;
+  pointer-events: none;
+  z-index: 171;
+  opacity: 0;
+  animation: noteFloat 2s ease-out forwards;
+}
+@keyframes noteFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--note-dy, -140px))
+      translateX(var(--note-dx, 30px)) scale(0.3) rotate(var(--note-rot, 25deg));
   }
 }
 
@@ -665,6 +749,13 @@ body {
   z-index: 4000;
   line-height: 2;
   text-align: right;
+  pointer-events: none;
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.7),
+    1px -1px 0 rgba(0, 0, 0, 0.7),
+    -1px 1px 0 rgba(0, 0, 0, 0.7),
+    1px 1px 0 rgba(0, 0, 0, 0.7),
+    0 0 6px rgba(0, 0, 0, 0.9);
 }
 .legend-item {
   display: flex;
@@ -1445,13 +1536,14 @@ body.is-mobile * {
 
   /* Hint bar */
   #hint {
-    bottom: 66px;
+    bottom: 10px;
     font-size: 6px;
   }
 
-  /* Legend — smaller */
+  /* Legend — moved to top for mobile */
   #legend {
-    bottom: 56px;
+    bottom: auto;
+    top: 48px;
     font-size: 6px;
     right: 8px;
   }
@@ -1499,7 +1591,11 @@ body.is-mobile * {
     margin-top: 10px;
   }
 
-  /* Modal — adapt for mobile */
+  /* Modal — adapt for mobile (shifted up a little) */
+  #modal-overlay {
+    align-items: flex-start;
+    padding-top: 48px;
+  }
   #modal-box {
     max-width: 95%;
     max-height: 72vh;
@@ -1537,10 +1633,11 @@ body.is-mobile * {
     font-size: 9px;
   }
 
-  /* Toast — narrower */
+  /* Toast — narrower, shifted up */
   .ach-toast {
     width: 260px;
     right: -280px;
+    bottom: 60px;
   }
   .ach-toast.ach-toast-in {
     right: 10px;
@@ -1577,9 +1674,13 @@ body.is-mobile * {
     font-size: 9px;
   }
 
-  /* Hide tooltips on mobile (no hover) */
+  /* Tooltip on mobile — position near crosshair, slightly smaller */
   #target-tooltip {
-    display: none !important;
+    max-width: 130px;
+  }
+  #target-tooltip .tt-img {
+    width: 118px;
+    height: 66px;
   }
 
   /* Cursor — ensure it shows on mobile as crosshair */
@@ -1598,5 +1699,31 @@ body.is-mobile * {
     bottom: 50px;
     transform: scale(0.6);
     transform-origin: bottom center;
+  }
+
+  /* DJ Truck — mobile */
+  #dj-truck {
+    bottom: 50px;
+    left: -160px;
+  }
+  #dj-truck.dj-truck-visible {
+    left: calc(50% - 60px);
+  }
+  #dj-truck.dj-truck-exit {
+    animation: truckExitMobile 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes truckExitMobile {
+    0% {
+      left: calc(50% - 60px);
+    }
+    18% {
+      left: calc(50% - 100px);
+    }
+    100% {
+      left: calc(100% + 40px);
+    }
+  }
+  #dj-truck-img {
+    width: 120px;
   }
 }

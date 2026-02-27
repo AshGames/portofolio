@@ -97,6 +97,26 @@ export const ACHIEVEMENTS = [
     rarity: "common",
   },
   {
+    id: "SUN_HUNTER",
+    icon: "☀️",
+    title: { en: "SUN HUNTER", fr: "CHASSEUR DE SOLEIL" },
+    desc: {
+      en: "Shoot the sun. Is it really a moon?",
+      fr: "Tirez sur le soleil. Est-ce vraiment une lune ?",
+    },
+    rarity: "rare",
+  },
+  {
+    id: "IDLE_5",
+    icon: "💤",
+    title: { en: "ARE YOU HERE?", fr: "T'ES LÀ ?" },
+    desc: {
+      en: "Stay idle for 5 minutes.",
+      fr: "Restez inactif pendant 5 minutes.",
+    },
+    rarity: "rare",
+  },
+  {
     id: "COMPLETIONIST",
     icon: "🏆",
     title: { en: "COMPLETIONIST", fr: "COMPLÉTIONNISTE" },

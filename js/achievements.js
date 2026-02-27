@@ -186,6 +186,7 @@ export function onHit(type, data) {
   if (type === "social") unlock("SOCIAL_BUTTERFLY");
   if (type === "lang") unlock("LINGUIST");
   if (type === "music") unlock("MAESTRO");
+  if (type === "sun") unlock("SUN_HUNTER");
 
   if (type === "project" && data?.id) {
     unlock("UFO_DOWN");
@@ -206,4 +207,21 @@ export function onMiss() {
 export function onScore(score) {
   if (score >= 1000) unlock("HIGH_SCORE");
   if (score >= 2500) unlock("ELITE");
+}
+
+// ── Idle timer — unlock IDLE_5 after 5 minutes of no activity ──────────────
+let _idleTimer = null;
+const IDLE_MS = 5 * 60 * 1000;
+
+function _resetIdle() {
+  if (_idleTimer) clearTimeout(_idleTimer);
+  _idleTimer = setTimeout(() => unlock("IDLE_5"), IDLE_MS);
+}
+
+/** Call once after the game starts to begin tracking idle time. */
+export function startIdleTimer() {
+  _resetIdle();
+  ["mousemove", "click", "keydown", "touchstart", "touchmove"].forEach((evt) =>
+    document.addEventListener(evt, _resetIdle, { passive: true }),
+  );
 }

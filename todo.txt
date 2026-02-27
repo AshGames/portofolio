@@ -1,7 +1,0 @@
-- soleil to background
-- achievment aim to the sun
-- achievement idle 5 min are you here ?
-- legend to top for mobile
-- bug switch language in intro don't switch in game
-- add drapeau pays language
-- in mobile all popup a little bit up

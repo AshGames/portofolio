@@ -45,6 +45,24 @@ function _hideTooltip() {
   _tooltip.classList.remove("tt-visible");
 }
 
+/**
+ * Show / hide the hover tooltip from external code (mobile aim loop).
+ * @param {string} imgSrc
+ * @param {string} name
+ * @param {number} x  – clientX
+ * @param {number} y  – clientY
+ */
+export function showTooltipAt(imgSrc, name, x, y) {
+  _tooltip.querySelector(".tt-img").src = imgSrc;
+  _tooltip.querySelector(".tt-name").textContent = name;
+  _tooltip.style.left = `${x + 18}px`;
+  _tooltip.style.top = `${y - 10}px`;
+  _tooltip.classList.add("tt-visible");
+}
+export function hideTooltip() {
+  _hideTooltip();
+}
+
 // ── About-me photo pool ──────────────────────────────────────────────────────
 const HEAD_PHOTOS = [
   "img/about/Me_Front.png",
