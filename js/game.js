@@ -28,6 +28,7 @@ import {
   openAchievementsViewer,
   startIdleTimer,
 } from "./achievements.js";
+import { isMobile } from "./state.js";
 
 // ── Explosion helper ────────────────────────────────────────────────────────
 const EXPLODE_MS = 650;
@@ -61,6 +62,12 @@ function hitHead(el, e) {
   updateHUD();
   onHit("head");
   onScore(state.score);
+
+  // ── GA: bio opened ────────────────────────────────────────────────────
+  if (typeof gtag === "function") {
+    gtag("event", "bio_opened");
+  }
+
   const r = el.getBoundingClientRect();
   _explodeTarget(
     el,
@@ -103,6 +110,15 @@ function hitProject(el, proj, e) {
   updateHUD();
   onHit("project", proj);
   onScore(state.score);
+
+  // ── GA: project opened ────────────────────────────────────────────────
+  if (typeof gtag === "function") {
+    gtag("event", "project_opened", {
+      project_id: proj.id,
+      project_title: proj.title,
+    });
+  }
+
   const color = el.style.getPropertyValue("--glow").trim() || "#00f5ff";
   const r = el.getBoundingClientRect();
   _explodeTarget(el, r.left + r.width / 2, r.top + r.height / 2, color, () => {
@@ -151,6 +167,15 @@ function hitSocial(el, social, e) {
   updateHUD();
   onHit("social");
   onScore(state.score);
+
+  // ── GA: social opened ─────────────────────────────────────────────────
+  if (typeof gtag === "function") {
+    gtag("event", "social_opened", {
+      social_label: social.label,
+      social_url: social.url,
+    });
+  }
+
   const r = el.getBoundingClientRect();
   _explodeTarget(
     el,
@@ -352,6 +377,13 @@ document.addEventListener("click", (e) => {
 export function startGame() {
   state.gameStarted = true;
   updateHUD();
+
+  // ── GA: intro passed + device type ──────────────────────────────────────
+  if (typeof gtag === "function") {
+    gtag("event", "intro_passed", {
+      device_type: isMobile ? "mobile" : "desktop",
+    });
+  }
 
   // Spawn all targets (staggered so they don't all start in the same spot)
   createHeadTarget(hitHead);

@@ -30,6 +30,13 @@ export function unlock(id) {
   _unlocked.add(id);
   _updateHUDBtn();
   _enqueueToast(ach);
+
+  // ── GA: achievement unlocked ──────────────────────────────────────────
+  if (typeof gtag === "function") {
+    gtag("event", "achievement_unlocked", {
+      achievement_id: id,
+    });
+  }
 }
 
 function _enqueueToast(ach) {

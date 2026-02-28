@@ -126,7 +126,51 @@ Want to fork this and make it your own? Here's where to look:
 
 ---
 
-## 📜 License
+## � Google Analytics
+
+This portfolio uses **Google Analytics 4** to track anonymous usage events such as:
+
+| Event                  | Description                      | Custom Parameters                |
+| ---------------------- | -------------------------------- | -------------------------------- |
+| `intro_passed`         | Visitor clicked START            | `device_type` (mobile / desktop) |
+| `bio_opened`           | Visitor shot the bio/head target | —                                |
+| `project_opened`       | Visitor shot a project UFO       | `project_id`, `project_title`    |
+| `social_opened`        | Visitor shot a social target     | `social_label`, `social_url`     |
+| `achievement_unlocked` | Visitor unlocked an achievement  | `achievement_id`                 |
+
+### Using your own Google Analytics
+
+If you fork this project, replace the GA Measurement ID with your own:
+
+1. Create a **Google Analytics 4** property at [analytics.google.com](https://analytics.google.com).
+2. Copy your Measurement ID (looks like `G-XXXXXXXXXX`).
+3. In `index.html`, replace the two occurrences of `G-615NEBXSL3` with your own ID:
+
+```html
+<!-- in <head> -->
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-YOUR_ID");
+</script>
+```
+
+4. **(Optional)** To see the custom parameters in reports, go to **Admin → Data display → Custom definitions** and register each parameter as a custom dimension.
+
+That's it, all the `gtag("event", ...)` calls in `js/game.js` and `js/achievements.js` will automatically send data to your property.
+
+> **To disable analytics entirely**, remove the GA `<script>` tags from `index.html`. The event calls are safely guarded with `typeof gtag === "function"` and will simply no-op.
+
+---
+
+## �📜 License
 
 This project is open source under the [MIT License](LICENSE).
 
