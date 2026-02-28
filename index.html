@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-615NEBXSL3"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-615NEBXSL3"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -19,10 +16,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Achraf Mezdari — Portfolio</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- CSS modules (split from styles.css) -->
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/cursor.css" />
@@ -36,6 +30,11 @@
     <link rel="stylesheet" href="css/intro.css" />
     <link rel="stylesheet" href="css/achievements.css" />
     <link rel="stylesheet" href="css/mobile.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
   </head>
   <body>
     <!-- Intro Screen -->
@@ -53,47 +52,12 @@
     <!-- Custom Cursor -->
     <div id="cursor">
       <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle
-          cx="20"
-          cy="20"
-          r="17"
-          stroke="#00f5ff"
-          stroke-width="1.5"
-          opacity="0.8"
-        />
+        <circle cx="20" cy="20" r="17" stroke="#00f5ff" stroke-width="1.5" opacity="0.8" />
         <circle cx="20" cy="20" r="3" fill="#00f5ff" />
-        <line
-          x1="20"
-          y1="2"
-          x2="20"
-          y2="10"
-          stroke="#00f5ff"
-          stroke-width="1.5"
-        />
-        <line
-          x1="20"
-          y1="30"
-          x2="20"
-          y2="38"
-          stroke="#00f5ff"
-          stroke-width="1.5"
-        />
-        <line
-          x1="2"
-          y1="20"
-          x2="10"
-          y2="20"
-          stroke="#00f5ff"
-          stroke-width="1.5"
-        />
-        <line
-          x1="30"
-          y1="20"
-          x2="38"
-          y2="20"
-          stroke="#00f5ff"
-          stroke-width="1.5"
-        />
+        <line x1="20" y1="2" x2="20" y2="10" stroke="#00f5ff" stroke-width="1.5" />
+        <line x1="20" y1="30" x2="20" y2="38" stroke="#00f5ff" stroke-width="1.5" />
+        <line x1="2" y1="20" x2="10" y2="20" stroke="#00f5ff" stroke-width="1.5" />
+        <line x1="30" y1="20" x2="38" y2="20" stroke="#00f5ff" stroke-width="1.5" />
       </svg>
     </div>
 
@@ -106,9 +70,7 @@
       <div class="name">ACHRAF.EXE</div>
       <div id="score-display">SCORE: 000000</div>
       <div id="ammo-display">AMMO: ◉◉◉◉◉◉◉◉◉◉</div>
-      <button id="ach-hud-btn">
-        🏆 <span id="ach-count">0</span>/<span id="ach-total">?</span>
-      </button>
+      <button id="ach-hud-btn">🏆 <span id="ach-count">0</span>/<span id="ach-total">?</span></button>
     </div>
 
     <!-- Sky -->
@@ -119,21 +81,14 @@
 
     <!-- DJ Truck — animated bass truck when BGM is on -->
     <div id="dj-truck">
-      <img
-        src="img/others/djTruck.png"
-        alt="DJ Truck"
-        id="dj-truck-img"
-        draggable="false"
-      />
+      <img src="img/others/djTruck.png" alt="DJ Truck" id="dj-truck-img" draggable="false" />
     </div>
 
     <!-- Ground -->
     <div id="ground"></div>
 
     <!-- Hint bar -->
-    <div id="hint" data-i18n="hint_bar">
-      [ CLICK TO SHOOT • AIM AT TARGETS ]
-    </div>
+    <div id="hint" data-i18n="hint_bar">[ CLICK TO SHOOT • AIM AT TARGETS ]</div>
 
     <!-- Legend -->
     <div id="legend">
