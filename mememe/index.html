@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050713">
+  <meta name="description" content="MeMeMe is a neon puzzle-action game where every move becomes part of the solution.">
+  <title>MeMeMe — Neon puzzle action</title>
+  <style>
+    :root {
+      --void: #050713;
+      --panel: #091126;
+      --ink: #dbf0ff;
+      --muted: #8fa7c2;
+      --line: #173a58;
+      --cyan: #21f0ff;
+      --pink: #ff3391;
+      --purple: #996bff;
+      --yellow: #ffd129;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--void);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(1040px, calc(100% - 2rem)); margin: auto; }
+    .eyebrow, .label {
+      color: var(--cyan);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1.35rem 0; }
+    .logo { color: var(--ink); font-size: 1rem; font-weight: 900; letter-spacing: -.06em; text-decoration: none; }
+    .logo span { color: var(--cyan); }
+    nav { display: flex; gap: 1.2rem; color: var(--muted); font-size: .82rem; font-weight: 700; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus-visible, footer a:hover, footer a:focus-visible { color: var(--cyan); }
+
+    .hero { display: grid; grid-template-columns: 1fr .88fr; gap: 3rem; align-items: center; min-height: 535px; padding: 4rem 0 5rem; }
+    h1 { max-width: 7ch; margin: .65rem 0 1.1rem; font-size: clamp(3.4rem, 8vw, 6.6rem); font-weight: 900; letter-spacing: -.085em; line-height: .83; }
+    h1 em { color: var(--cyan); font-style: normal; }
+    .intro { max-width: 46ch; margin: 0; color: var(--muted); font-size: 1.08rem; line-height: 1.65; }
+    .button { display: inline-flex; align-items: center; min-height: 2.8rem; margin-top: 1.65rem; padding: .65rem 1rem; border: 1px solid var(--cyan); background: var(--cyan); color: #04121b; font-size: .82rem; font-weight: 900; letter-spacing: .04em; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .button:hover, .button:focus-visible { box-shadow: 0 0 22px rgba(33, 240, 255, .35); transform: translateY(-2px); }
+
+    .board {
+      position: relative;
+      min-height: 355px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background-color: var(--panel);
+      background-image: linear-gradient(rgba(33,240,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(33,240,255,.08) 1px, transparent 1px);
+      background-size: 30px 30px;
+      box-shadow: inset 0 0 45px rgba(33,240,255,.045);
+    }
+    .board::before { position: absolute; inset: 12px; border: 1px solid rgba(33,240,255,.18); content: ""; }
+    .board-top { position: relative; z-index: 2; display: flex; justify-content: space-between; padding: 1rem; color: var(--muted); font-size: .65rem; font-weight: 800; letter-spacing: .1em; }
+    .board-top b { color: var(--yellow); }
+    .route { position: absolute; z-index: 1; top: 38%; left: 15%; width: 53%; height: 30%; border-top: 2px solid var(--cyan); border-right: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); opacity: .82; box-shadow: 0 0 12px rgba(33,240,255,.55); }
+    .route::after { position: absolute; right: -5px; bottom: -5px; width: 8px; height: 8px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); content: ""; }
+    .player, .echo, .signal, .gate { position: absolute; z-index: 2; }
+    .player { top: 39%; left: 25%; width: 48px; height: 48px; background: var(--cyan); clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); box-shadow: 0 0 22px rgba(33,240,255,.8); }
+    .echo { width: 30px; height: 30px; transform: rotate(45deg); }
+    .echo.purple { top: 29%; left: 60%; background: var(--purple); box-shadow: 0 0 18px var(--purple); }
+    .echo.pink { top: 62%; left: 45%; background: var(--pink); box-shadow: 0 0 18px var(--pink); }
+    .signal { top: 64%; left: 16%; width: 16px; height: 16px; background: var(--yellow); transform: rotate(45deg); box-shadow: 0 0 14px var(--yellow); }
+    .gate { top: 28%; right: 14%; width: 18px; height: 132px; border-top: 5px solid var(--pink); border-bottom: 5px solid var(--pink); background: rgba(255,51,145,.15); box-shadow: 0 0 16px rgba(255,51,145,.4); }
+    .legend { position: absolute; z-index: 2; bottom: 1rem; left: 1rem; display: flex; gap: .8rem; color: var(--muted); font-size: .62rem; font-weight: 800; letter-spacing: .08em; }
+    .key { display: inline-flex; align-items: center; gap: .35rem; }
+    .dot { width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); }
+    .key.player-key { color: var(--cyan); }.key.echo-key { color: var(--purple); }.key.gate-key { color: var(--pink); }
+
+    section { padding: 5rem 0; border-top: 1px solid var(--line); }
+    .section-heading { max-width: 540px; }
+    h2 { margin: .55rem 0 0; font-size: clamp(2.1rem, 5vw, 3.6rem); letter-spacing: -.07em; line-height: .96; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2rem; border: 1px solid var(--line); background: var(--line); }
+    .step { min-height: 186px; padding: 1.4rem; background: var(--panel); }
+    .step-number { color: var(--cyan); font-size: .75rem; font-weight: 900; }
+    .step h3 { margin: 2.4rem 0 .45rem; font-size: 1.15rem; letter-spacing: -.035em; }
+    .step p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+    .highlights { display: grid; grid-template-columns: 1.2fr repeat(3, .6fr); border: 1px solid var(--line); }
+    .highlight { min-height: 125px; padding: 1.25rem; border-right: 1px solid var(--line); }
+    .highlight:last-child { border: 0; }
+    .highlight strong { display: block; color: var(--cyan); font-size: 2.3rem; letter-spacing: -.08em; }
+    .highlight span { color: var(--muted); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .highlight.copy { display: flex; flex-direction: column; justify-content: center; }
+    .highlight.copy p { max-width: 31ch; margin: .55rem 0 0; color: var(--muted); font-size: .94rem; line-height: 1.5; }
+
+    footer { padding: 3.5rem 0 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 2rem; }
+    footer h2 { margin: 0 0 .55rem; font-size: .76rem; color: var(--muted); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    footer p, footer a { margin: 0; color: var(--ink); font-size: .92rem; line-height: 1.7; }
+    footer a { text-decoration-color: rgba(33,240,255,.5); text-underline-offset: .18em; }
+    .copyright { margin-top: 3rem; color: #61708d; font-size: .72rem; }
+
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding: 3rem 0 4rem; }
+      .board { min-height: 315px; }
+      .steps, .highlights, .footer-grid { grid-template-columns: 1fr; }
+      .highlight { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .highlight:last-child { border-bottom: 0; }
+      .step h3 { margin-top: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="logo" href="#top" aria-label="MeMeMe home">ME <span>/</span> ME <span>/</span> ME</a>
+    <nav aria-label="Page navigation"><a href="#game">Game</a><a href="#support">Support</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">Neon puzzle action</p>
+        <h1 id="title">Outrun your own <em>signal.</em></h1>
+        <p class="intro">Every pickup creates an echo of your route. Avoid your past moves, use them to hold switches and open the way through each circuit.</p>
+        <a class="button" href="#game">How it works&nbsp; →</a>
+      </div>
+      <div class="board" role="img" aria-label="A MeMeMe game board with a cyan player, purple and pink echoes, an energy signal and a gate">
+        <div class="board-top"><span>LEVEL <b>01</b></span><span>SIGNAL ROUTE</span></div>
+        <div class="route"></div><div class="player"></div><div class="echo purple"></div><div class="echo pink"></div><div class="signal"></div><div class="gate"></div>
+        <div class="legend"><span class="key player-key"><i class="dot"></i>YOU</span><span class="key echo-key"><i class="dot"></i>ECHO</span><span class="key gate-key"><i class="dot"></i>GATE</span></div>
+      </div>
+    </section>
+
+    <section id="game">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">The loop</p><h2>Make every run count.</h2></div>
+        <div class="steps">
+          <article class="step"><span class="step-number">01 / MOVE</span><h3>Trace a route</h3><p>Find your path through a compact neon circuit.</p></article>
+          <article class="step"><span class="step-number">02 / REPLAY</span><h3>Create an echo</h3><p>Each energy pickup releases a replay of what you just did.</p></article>
+          <article class="step"><span class="step-number">03 / SOLVE</span><h3>Use the loop</h3><p>Let your echo work the circuit while you move ahead.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="MeMeMe highlights">
+      <div class="highlights">
+        <div class="highlight copy"><p class="label">MeMeMe</p><p>Quick routes, layered puzzles, and a replay of the chaos you created.</p></div>
+        <div class="highlight"><strong>30</strong><span>Levels</span></div>
+        <div class="highlight"><strong>3</strong><span>Worlds</span></div>
+        <div class="highlight"><strong>8</strong><span>Skins</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap" id="support">
+    <div class="footer-grid">
+      <div><h2>Publisher</h2><p><strong>MeMeMe</strong> is created and published by <strong>Achraf MEZDARI</strong>.</p></div>
+      <div><h2>Support</h2><a href="mailto:achraf.mezdari.games@gmail.com">achraf.mezdari.games@gmail.com</a></div>
+      <div><h2>Privacy</h2><a href="privacy-en.html">Privacy Policy — English</a><br><a href="privacy-fr.html" lang="fr">Politique de confidentialité — Français</a></div>
+    </div>
+    <p class="copyright">© 2026 Achraf MEZDARI</p>
+  </footer>
+</body>
+</html>
